@@ -14,12 +14,10 @@ TEMPLATE = app
 
 SOURCES += \
     src/IrcMessage.cpp \
-    src/Response.cpp \
     src/main.cpp
 
 HEADERS += \
-    src/IrcMessage.hpp \
-    src/Response.hpp
+    src/IrcMessage.hpp
 
 FORMS +=
 
