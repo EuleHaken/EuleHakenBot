@@ -4,6 +4,9 @@
 # Build files
 build/
 
+# Private stuff - nothing to do with this repo
+private/
+
 *~
 *.autosave
 *.a
