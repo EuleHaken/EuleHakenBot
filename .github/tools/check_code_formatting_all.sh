@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find src/ -iname "*.cpp" -o -iname "*.hpp" -exec clang-format -i {};
+find src/ \( -iname "*.hpp" -o -iname "*.cpp" \) -exec clang-format -i {} \;
