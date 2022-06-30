@@ -5,7 +5,7 @@
 fail="0"
 
 while read -r file; do
-    if ! diff -u <(cat "$file") <(clang-format "$file"); then
+    if ! diff -u <(cat "$file") <(clang-format -style=file "$file"); then
         echo "$file differs!"
         fail="1"
     fi
