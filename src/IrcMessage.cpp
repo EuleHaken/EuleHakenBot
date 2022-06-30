@@ -25,23 +25,21 @@ IrcMessage::IrcMessage()
 {
 }
 
-const QString& IrcMessage::getRawMessage() const
+const QString & IrcMessage::getRawMessage() const
 {
     return this->_rawMessage;
 }
 
-const QString& IrcMessage::getPrefix() const
+const QString&IrcMessage::getPrefix() const
 {
     return this->_prefix;
 }
 
-const QString& IrcMessage::getCommand() const
-{
+const QString &IrcMessage::getCommand() const{
     return this->_command;
 }
 
-const QStringList& IrcMessage::getParams() const
-{
+const QStringList& IrcMessage::getParams() const  {
     return this->_params;
 }
 
