@@ -1,6 +1,9 @@
 #include "IrcMessage.hpp"
 
-EuleHakenBot::IrcMessage::IrcMessage(const QString& rawMsg,
+namespace EuleHakenBot
+{
+
+IrcMessage::IrcMessage(const QString& rawMsg,
                                      const QString& prefix,
                                      const QString& command,
                                      const QStringList& params,
@@ -13,7 +16,7 @@ EuleHakenBot::IrcMessage::IrcMessage(const QString& rawMsg,
 {
 }
 
-EuleHakenBot::IrcMessage::IrcMessage()
+IrcMessage::IrcMessage()
     : _rawMessage("")
     , _prefix("")
     , _command("")
@@ -22,32 +25,32 @@ EuleHakenBot::IrcMessage::IrcMessage()
 {
 }
 
-const QString& EuleHakenBot::IrcMessage::getRawMessage() const
+const QString& IrcMessage::getRawMessage() const
 {
     return this->_rawMessage;
 }
 
-const QString& EuleHakenBot::IrcMessage::getPrefix() const
+const QString& IrcMessage::getPrefix() const
 {
     return this->_prefix;
 }
 
-const QString& EuleHakenBot::IrcMessage::getCommand() const
+const QString& IrcMessage::getCommand() const
 {
     return this->_command;
 }
 
-const QStringList& EuleHakenBot::IrcMessage::getParams() const
+const QStringList& IrcMessage::getParams() const
 {
     return this->_params;
 }
 
-const QMap<QString, QString>& EuleHakenBot::IrcMessage::getTags() const
+const QMap<QString, QString>& IrcMessage::getTags() const
 {
     return this->_tags;
 }
 
-const EuleHakenBot::IrcMessage EuleHakenBot::IrcMessage::parse(
+const IrcMessage IrcMessage::parse(
     const QString& text)
 {
     QString prefix, command;
@@ -64,7 +67,7 @@ const EuleHakenBot::IrcMessage EuleHakenBot::IrcMessage::parse(
         if (nextSpace == -1)
         {
             qWarning() << "Malformed IRC message!";
-            return EuleHakenBot::IrcMessage{};
+            return IrcMessage{};
         }
 
         QString substringMsg(text.mid(1, nextSpace));
@@ -105,7 +108,7 @@ const EuleHakenBot::IrcMessage EuleHakenBot::IrcMessage::parse(
 
         if (nextSpace == -1)
         {
-            return EuleHakenBot::IrcMessage{};
+            return IrcMessage{};
         }
 
         prefix = text.mid(pos + 1, nextSpace - (pos + 1));
@@ -169,5 +172,7 @@ const EuleHakenBot::IrcMessage EuleHakenBot::IrcMessage::parse(
         }
     }
 
-    return EuleHakenBot::IrcMessage(text, prefix, command, params, tags);
+    return IrcMessage(text, prefix, command, params, tags);
 }
+
+} // namespace EuleHakenBot
