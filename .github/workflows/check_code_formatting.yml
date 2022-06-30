@@ -20,4 +20,4 @@ jobs:
         run: sudo apt-get install -y clang-format
 
       - name: Check formatting
-        run: ./tools/check_code_formatting_all.sh
+        run: ./.github/tools/check_code_formatting_all.sh
