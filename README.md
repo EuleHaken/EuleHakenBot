@@ -16,8 +16,8 @@ github branch.
   and then use `clang-format` to format your files
 * Push the files, that you changed, to that branch
 * Open a new Pull Request
-* If the Pull Requests checks fail for whatever reason, try to fix whatever cause it to fail. If you need help, once again,
-  you could always just open a Issue
+* If the Pull Requests checks fail for whatever reason, try to fix whatever cause it to fail. If you need help,
+  you can always just open a new Issue
 
 ## Building
 * Clone this repo
@@ -27,4 +27,4 @@ github branch.
 * Now, to build, hit the hammer icon
 * To build, and run the project aswell, hit the Play Icon
 
-** If you need help, you can always open a new Issue **
+**If you need help, you can always open a new Issue**
