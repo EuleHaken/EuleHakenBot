@@ -1,4 +1,4 @@
-EuleHakenBot [![GitHub Actions Build](https://github.com/EuleHaken/EuleHakenBot/workflows/Build/badge.svg?branch=main)](https://github.com/EuleHaken/EuleHakenBot/actions?query=workflow%3ABuild+branch%3Amain)
+EuleHakenBot [![Code formatting](https://github.com/EuleHaken/EuleHakenBot/actions/workflows/check_code_formatting.yml/badge.svg)](https://github.com/EuleHaken/EuleHakenBot/actions/workflows/check_code_formatting.yml)
 
 # EuleHakenBot - A Twitch Chatbot as a GUI Application in C++
 
