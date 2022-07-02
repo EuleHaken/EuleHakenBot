@@ -27,7 +27,7 @@ const QString& IrcMessage::getRawMessage() const
     return this->_rawMessage;
 }
 
-const QString&IrcMessage::getPrefix() const
+const QString& IrcMessage::getPrefix() const
 {
     return this->_prefix;
 }
