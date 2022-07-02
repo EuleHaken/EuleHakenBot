@@ -5,7 +5,7 @@ namespace EuleHakenBot {
 IrcClient::IrcClient(QObject* parent)
     : QObject{parent}
     , _isConnected{false}
-    , _useSSL{false}
+    , _isEncrypted{false}
 {
     this->_socket = new QSslSocket(parent);
 
@@ -54,9 +54,9 @@ IrcClient* IrcClient::setPass(QString& pass)
     return this;
 }
 
-IrcClient* IrcClient::setUseSSL(bool ssl)
+IrcClient* IrcClient::setEncrypted(bool encrypted)
 {
-    this->_useSSL = ssl;
+    this->_isEncrypted = encrypted;
     return this;
 }
 
@@ -80,7 +80,7 @@ void IrcClient::onReadyRead()
 
 void IrcClient::connectToServer()
 {
-    if (this->_useSSL)
+    if (this->_isEncrypted)
     {
         this->_socket->connectToHostEncrypted(this->_host, this->_port);
         this->_authenticate();

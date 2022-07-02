@@ -44,7 +44,7 @@ public:
     IrcClient* setUser(const QString& user);
     IrcClient* setPass(QString& pass);
 
-    IrcClient* setUseSSL(bool ssl);
+    IrcClient* setEncrypted(bool encrypted);
 
 private:
     //void sendRawMessage(const QString& message);
@@ -54,7 +54,7 @@ private:
 private:
     QSslSocket* _socket;
     bool _isConnected;
-    bool _useSSL;
+    bool _isEncrypted;
 
     QString _host;
     quint16 _port;
