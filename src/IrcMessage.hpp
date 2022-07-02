@@ -1,9 +1,9 @@
 #pragma once
 
+#include <QDebug>
 #include <QMap>
 #include <QString>
 #include <QStringList>
-#include <QDebug>
 
 namespace EuleHakenBot {
 
@@ -16,7 +16,7 @@ public:
 
     const QStringList& getParams() const;
 
-    const QMap<QString,QString>& getTags() const;
+    const QMap<QString, QString>& getTags() const;
 
 public:
     static const IrcMessage parse(const QString& text);
