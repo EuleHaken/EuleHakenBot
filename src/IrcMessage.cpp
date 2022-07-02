@@ -1,13 +1,10 @@
 #include "IrcMessage.hpp"
 
-namespace EuleHakenBot
-{
+namespace EuleHakenBot {
 
-IrcMessage::IrcMessage(const QString& rawMsg,
-                                     const QString& prefix,
-                                     const QString& command,
-                                     const QStringList& params,
-                                     const QMap<QString, QString>& tags)
+IrcMessage::IrcMessage(const QString& rawMsg, const QString& prefix,
+                       const QString& command, const QStringList& params,
+                       const QMap<QString, QString>& tags)
     : _rawMessage(rawMsg)
     , _prefix(prefix)
     , _command(command)
@@ -30,7 +27,7 @@ const QString& IrcMessage::getRawMessage() const
     return this->_rawMessage;
 }
 
-const QString& IrcMessage::getPrefix() const
+const QString&IrcMessage::getPrefix() const
 {
     return this->_prefix;
 }
@@ -50,8 +47,7 @@ const QMap<QString, QString>& IrcMessage::getTags() const
     return this->_tags;
 }
 
-const IrcMessage IrcMessage::parse(
-    const QString& text)
+const IrcMessage IrcMessage::parse(const QString& text)
 {
     QString prefix, command;
     QStringList params;
@@ -175,4 +171,4 @@ const IrcMessage IrcMessage::parse(
     return IrcMessage(text, prefix, command, params, tags);
 }
 
-} // namespace EuleHakenBot
+}  // namespace EuleHakenBot
