@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += \
     src/IrcMessage.cpp \
     src/PrivmsgMessage.cpp \
-    src/PrivmsgMessageHandler.cpp \
     src/WebSocket.cpp \
     src/main.cpp
 
