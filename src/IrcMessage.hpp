@@ -32,7 +32,7 @@ private:
 
     QMap<QString, QString> _tags;
 
-private:
+protected:
     IrcMessage();
     IrcMessage(const QString& rawMsg, const QString& prefix,
                const QString& command, const QStringList& params,
