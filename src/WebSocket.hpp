@@ -21,6 +21,9 @@ class WebSocket : public QObject
 public:
     explicit WebSocket(QObject* parent = nullptr);
 
+signals:
+    void incomingMessage(const IrcMessage& message);
+
 public:
     /**
      * @brief Connects to the Web Socket
