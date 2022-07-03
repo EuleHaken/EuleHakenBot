@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network websockets
 
 INCLUDEPATH += src/
 
@@ -14,10 +14,17 @@ TEMPLATE = app
 
 SOURCES += \
     src/IrcMessage.cpp \
+    src/PrivmsgMessage.cpp \
+    src/PrivmsgMessageHandler.cpp \
+    src/WebSocket.cpp \
     src/main.cpp
 
 HEADERS += \
-    src/IrcMessage.hpp
+    src/IrcMessage.hpp \
+    src/MessageHandler.hpp \
+    src/PrivmsgMessage.hpp \
+    src/PrivmsgMessageHandler.hpp \
+    src/WebSocket.hpp
 
 FORMS +=
 
