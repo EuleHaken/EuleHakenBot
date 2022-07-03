@@ -32,7 +32,24 @@ void WebSocket::onIncomingMessage(const QString& message)
         if (line.endsWith("\r\n"))
             line.remove("\r\n");
 
-        this->onIncomingMessage(IrcMessage::parse(line));
+        //emit this->incomingMessage(IrcMessage::parse(line));
+
+        IrcMessage parsedLine = IrcMessage::parse(line);
+        QString command = parsedLine.getCommand();
+
+        if (command == "PRIVMSG")
+        {
+            PrivmsgMessage privmsg = parsedLine;
+            this->_privmsgHandler(privmsg);
+        }
+        else if (command == "PING")
+        {
+            this->_pingHandler(parsedLine);
+        }
+        else
+        {
+            this->_defaultHandler(parsedLine);
+        }
     }
 }
 
