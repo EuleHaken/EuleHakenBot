@@ -5,6 +5,11 @@ namespace EuleHakenBot {
 WebSocket::WebSocket(QObject* parent)
     : QObject{parent}
     , _isConnected{false}
+    , _defaultHandler{[](const IrcMessage&) {}}
+    , _privmsgHandler{[](const PrivmsgMessage&) {}}
+    , _pingHandler{[this](const IrcMessage& msg) {
+        this->_defaultPingHandler(msg);
+    }}
 {
     this->connect(&this->_socket, &QWebSocket::connected, this,
                   &WebSocket::onConnected);
@@ -35,11 +40,6 @@ void WebSocket::_write(const QString& text)
 {
     this->_socket.sendTextMessage(text);
     this->_socket.flush();
-}
-
-void WebSocket::onIncomingMessage(const IrcMessage& message)
-{
-    qInfo() << "Message: " << message.getRawMessage();
 }
 
 void WebSocket::onConnected()
@@ -91,9 +91,60 @@ void WebSocket::sendRaw(const QString& text)
     this->_write(text);
 }
 
+QWebSocket& WebSocket::getSocket()
+{
+    return this->_socket;
+}
+
 void WebSocket::connectToHost()
 {
     this->_socket.open(this->_url);
+}
+
+/*
+template <class T>
+void WebSocket::registerCommandHandler(const WebSocketCommands command,
+                                       void (*handler)(const T&))
+{
+    switch (command)
+    {
+        case WebSocketCommands::PING: {
+            qInfo() << "Registered ping!";
+            // convert to PingMessage, e.g.;
+            break;
+        }
+        case WebSocketCommands::PRIVMSG: {
+            this->_privmsgHandler = handler;
+            auto i = {[](const T&) {}};
+            break;
+        }
+
+        default: {
+            qInfo() << "REGISTERED!!!";
+            this->_defaultHandler = handler;
+        }
+    }
+    //handler(IrcMessage::parse("@"));
+}
+*/
+
+// ask, how we could put all of these setXXXHandler() methods to one method, e.g. registerHandler() with generics, e.g
+void WebSocket::setDefaultCommandHandler(
+    std::function<void(const IrcMessage&)> handler)
+{
+    this->_defaultHandler = handler;
+}
+
+void WebSocket::setPrivmsgHandler(
+    std::function<void(const PrivmsgMessage&)> handler)
+{
+    this->_privmsgHandler = handler;
+}
+
+void WebSocket::_defaultPingHandler(const IrcMessage& message)
+{
+    QString reply = message.getRawMessage();
+    this->_write(QString("PONG %1").arg(reply.remove("PING ")));
 }
 
 }  // namespace EuleHakenBot

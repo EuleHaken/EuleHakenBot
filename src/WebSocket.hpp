@@ -58,14 +58,29 @@ public:
      */
     void sendRaw(const QString& text);
 
+    QWebSocket& getSocket();
+
+    //template <class T>
+    //void registerCommandHandler(const WebSocketCommands command, void(*handler)(const T&));
+    // // void registerCommandHandler(const QString& command);
+
+    // This is what we wanted to achieve with registerCmdHandler, but simpler, but didnt work :(
+    //void setDefaultCommandHandler(void (*handler)(const IrcMessage&));
+    void setDefaultCommandHandler(
+        std::function<void(const IrcMessage&)> handler);
+    void setPrivmsgHandler(std::function<void(const PrivmsgMessage&)> handler);
+
+    void setSocket(const QWebSocket& newSocket);
+
 private slots:
     void onConnected();
-    void onIncomingMessage(const IrcMessage& message);
     void onIncomingMessage(const QString& message);
     // void onErrors();
 
 private:
     void _write(const QString& text);
+
+    void _defaultPingHandler(const IrcMessage& message);
 
 private:
     QWebSocket _socket;
@@ -76,6 +91,20 @@ private:
 
     QString _nick;
     QString _pass;
+
+    //IrcMessage _defaultHandler;
+    //PrivmsgMessage _privmsgHandler;
+
+    //WebSocketCommandHandler<IrcMessage> _defaultHandler;
+    //WebSocketCommandHandler<PrivmsgMessage> _privmsgHandler;
+
+    //void (WebSocket::*_defaultHandler)(const IrcMessage&);
+    //void (WebSocket::*_privmsgHandler)(const PrivmsgMessage&);
+    //void (WebSocket::*_pingHandler)(const IrcMessage& message);
+
+    std::function<void(const IrcMessage&)> _defaultHandler;
+    std::function<void(const PrivmsgMessage&)> _privmsgHandler;
+    std::function<void(const IrcMessage& message)> _pingHandler;
 };
 
 }  // namespace EuleHakenBot
