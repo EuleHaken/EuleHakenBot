@@ -47,11 +47,23 @@ const QMap<QString, QString>& IrcMessage::getTags() const
     return this->_tags;
 }
 
+bool IrcMessage::isEmpty() const
+{
+    return this->_rawMessage.isEmpty() && this->_prefix.isEmpty() &&
+           this->_command.isEmpty() && this->_params.empty() &&
+           this->_tags.empty();
+}
+
 const IrcMessage IrcMessage::parse(const QString& text)
 {
     QString prefix, command;
     QStringList params;
     QMap<QString, QString> tags;
+
+    if (text.isEmpty())
+    {
+        return IrcMessage{text, prefix, command, params, tags};
+    }
 
     int pos{0};
     int nextSpace{0};
@@ -63,7 +75,7 @@ const IrcMessage IrcMessage::parse(const QString& text)
         if (nextSpace == -1)
         {
             qWarning() << "Malformed IRC message!";
-            return IrcMessage{};
+            return IrcMessage{text, prefix, command, params, tags};
         }
 
         QString substringMsg(text.mid(1, nextSpace));
@@ -104,7 +116,7 @@ const IrcMessage IrcMessage::parse(const QString& text)
 
         if (nextSpace == -1)
         {
-            return IrcMessage{};
+            return IrcMessage{text, prefix, command, params, tags};
         }
 
         prefix = text.mid(pos + 1, nextSpace - (pos + 1));

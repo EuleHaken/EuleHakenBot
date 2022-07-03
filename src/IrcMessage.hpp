@@ -18,6 +18,8 @@ public:
 
     const QMap<QString, QString>& getTags() const;
 
+    bool isEmpty() const;
+
 public:
     static const IrcMessage parse(const QString& text);
 
