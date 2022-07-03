@@ -1,10 +1,14 @@
 #pragma once
 
 #include "IrcMessage.hpp"
+#include "PrivmsgMessage.hpp"
+#include "WebSocketCommandHandler.hpp"
+#include "WebSocketCommands.hpp"
 
 #include <QObject>
 #include <QUrl>
 #include <QWebSocket>
+#include <functional>
 
 namespace EuleHakenBot {
 
