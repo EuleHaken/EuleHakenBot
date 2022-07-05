@@ -1,10 +1,13 @@
 #pragma once
 
-#include "IrcMessage.hpp"
-#include "PrivmsgMessage.hpp"
+#include "CommandHandler.hpp"
 #include "WebSocketCommandHandler.hpp"
 #include "WebSocketCommands.hpp"
+#include "messages/IrcMessage.hpp"
+#include "messages/PrivmsgMessage.hpp"
 
+#include <QHash>
+#include <QList>
 #include <QObject>
 #include <QUrl>
 #include <QWebSocket>
@@ -102,9 +105,15 @@ private:
     //void (WebSocket::*_privmsgHandler)(const PrivmsgMessage&);
     //void (WebSocket::*_pingHandler)(const IrcMessage& message);
 
-    std::function<void(const IrcMessage&)> _defaultHandler;
-    std::function<void(const PrivmsgMessage&)> _privmsgHandler;
-    std::function<void(const IrcMessage& message)> _pingHandler;
+    //std::function<void(const IrcMessage&)> _defaultHandler;
+    //std::function<void(const PrivmsgMessage&)> _privmsgHandler;
+    //std::function<void(const IrcMessage& message)> _pingHandler;
+
+    QHash<QString, QList<CommandHandler*>> _commandHandlers;
+    // const? const Handler&?
+
+public:
+    void setHandlerTest(const QString& command, CommandHandler& handler);
 };
 
 }  // namespace EuleHakenBot

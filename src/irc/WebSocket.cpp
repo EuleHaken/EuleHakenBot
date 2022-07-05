@@ -5,11 +5,11 @@ namespace EuleHakenBot {
 WebSocket::WebSocket(QObject* parent)
     : QObject{parent}
     , _isConnected{false}
-    , _defaultHandler{[](const IrcMessage&) {}}
-    , _privmsgHandler{[](const PrivmsgMessage&) {}}
-    , _pingHandler{[this](const IrcMessage& msg) {
-        this->_defaultPingHandler(msg);
-    }}
+//, _defaultHandler{[](const IrcMessage&) {}}
+//, _privmsgHandler{[](const PrivmsgMessage&) {}}
+//, _pingHandler{[this](const IrcMessage& msg) {
+//this->_defaultPingHandler(msg);
+//}}
 {
     this->connect(&this->_socket, &QWebSocket::connected, this,
                   &WebSocket::onConnected);
@@ -37,24 +37,27 @@ void WebSocket::onIncomingMessage(const QString& message)
         IrcMessage parsedLine = IrcMessage::parse(line);
         QString command = parsedLine.getCommand();
 
-        if (command == "PRIVMSG")
+        if (command == "PING")
         {
-            PrivmsgMessage privmsg = parsedLine;
-            this->_privmsgHandler(privmsg);
+            QString text = line.remove("PING ");
+            this->_write(QString("PING %1").arg(text));
+            continue;
         }
-        else if (command == "PING")
+
+        QList handlers = this->_commandHandlers[command];
+        if (!handlers.empty())
         {
-            this->_pingHandler(parsedLine);
-        }
-        else
-        {
-            this->_defaultHandler(parsedLine);
+            foreach (auto handler, handlers)
+            {
+                handler->handle(this->_socket, parsedLine);
+            }
         }
     }
 }
 
 void WebSocket::_write(const QString& text)
 {
+    qInfo() << "WRITING: " << text;
     this->_socket.sendTextMessage(text);
     this->_socket.flush();
 }
@@ -98,6 +101,8 @@ WebSocket* WebSocket::setUrl(const QString& url)
 
 void WebSocket::sendRaw(const QString& text)
 {
+    qInfo() << "WRITING RAW: " << text;
+
     // Socket ignores messages that we sent, if it hasn't emitted signal "connected"
     if (!this->_isConnected)
     {
@@ -164,4 +169,14 @@ void WebSocket::_defaultPingHandler(const IrcMessage& message)
     this->_write(QString("PONG %1").arg(reply.remove("PING ")));
 }
 
+void WebSocket::setHandlerTest(const QString& command, CommandHandler& handler)
+{
+    //handler.handle(this->_socket, IrcMessage::parse("PING :tmi.twitch.tv"));
+    this->_commandHandlers[command].append(&handler);
+}
+
 }  // namespace EuleHakenBot
+
+/*
+ * I would like to have a registerCommandHandler(QString cmd, ... handler) method :/
+ */
