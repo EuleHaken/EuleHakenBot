@@ -11,6 +11,7 @@ AlwaysBreakBeforeMultilineStrings: false
 BasedOnStyle: Google
 BraceWrapping: {
     AfterClass: 'true'
+    AfterStruct: 'true'
     AfterControlStatement: 'true'
     AfterFunction: 'true'
     AfterNamespace: 'false'
