@@ -37,6 +37,18 @@ NetworkRequest NetworkRequest::setType(const NetworkRequestType& newType)
     return *this;
 }
 
+NetworkRequest NetworkRequest::setHeader(const char* key, const char* value)
+{
+    this->_data.request.setRawHeader(key, value);
+    return *this;
+}
+
+NetworkRequest NetworkRequest::setTimeout(const unsigned long& timeout)
+{
+    this->_data.request.setTransferTimeout(timeout);
+    return *this;
+}
+
 void NetworkRequest::execute()
 {
     this->_execute(std::move(this->_data));

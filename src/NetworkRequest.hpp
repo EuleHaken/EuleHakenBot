@@ -27,6 +27,8 @@ public:
 
     NetworkRequest setHeader(const char* key, const char* value);
 
+    NetworkRequest setTimeout(const unsigned long& timeout = 2500);
+
     void execute();
 
 private:
