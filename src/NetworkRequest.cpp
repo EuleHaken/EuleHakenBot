@@ -51,7 +51,7 @@ void NetworkRequest::_execute(const NetworkData& data)
                 return NetworkManager::accessManager.get(data.request);
             }
             case NetworkRequestType::POST: {
-                return nullptr; // TODO
+                return nullptr;  // TODO
             }
             default: {
                 return nullptr;

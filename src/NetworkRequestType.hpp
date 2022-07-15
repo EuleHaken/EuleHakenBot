@@ -2,11 +2,6 @@
 
 namespace EuleHakenBot {
 
-enum class NetworkRequestType {
-    GET,
-    POST,
-    PUT,
-    DELETE
-};
+enum class NetworkRequestType { GET, POST, PUT, DELETE };
 
 }
