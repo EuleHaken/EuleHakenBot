@@ -7,6 +7,7 @@ IRC servers and there, connect your own Twitch Chatbot.
 
 Maybe, in the future, I will make it, so you will be able to connect to other IRC servers aswell.
 
+<!--- This is an HTML comment in Markdown
 ## Contributing
 The `src` folder contains a file called `.clang-format`. If you change this file, please don't push it to your
 github branch.
@@ -28,3 +29,6 @@ github branch.
 * To build, and run the project aswell, hit the Play Icon
 
 **If you need help, you can always open a new Issue**
+
+TODO
+-->
