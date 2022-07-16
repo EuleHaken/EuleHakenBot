@@ -30,6 +30,18 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/Channel.hpp \
+    src/Helix.hpp \
+    src/NetworkData.hpp \
+    src/NetworkManager.hpp \
+    src/NetworkRequest.hpp \
+    src/NetworkRequestType.hpp \
+    src/NetworkResult.hpp \
+    src/Paths.hpp \
+    src/PostToThread.hpp \
+    src/main.cpp
+
+HEADERS += \
     src/IrcMessage.hpp \
     src/MessageHandler.hpp \
     src/PrivmsgMessage.hpp \
