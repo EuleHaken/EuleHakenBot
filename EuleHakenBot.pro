@@ -20,6 +20,15 @@ SOURCES += \
     src/WebSocket.cpp \
     src/main.cpp
 
+SOURCES += \
+    src/Channel.cpp \
+    src/NetworkManager.cpp \
+    src/NetworkRequest.cpp \
+    src/NetworkResult.cpp \
+    src/Helix.cpp \
+    src/Paths.cpp \
+    src/main.cpp
+
 HEADERS += \
     src/IrcMessage.hpp \
     src/MessageHandler.hpp \
