@@ -6,7 +6,7 @@ Helix::Helix()
 {
 }
 
-NetworkRequest Helix::makeRequest(const QString &url, QUrlQuery &query)
+NetworkRequest Helix::makeRequest(const QString& url, const QUrlQuery& query)
 {
     assert(!url.startsWith("/"));
 
