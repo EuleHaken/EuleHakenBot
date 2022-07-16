@@ -86,7 +86,14 @@ void NetworkRequest::_execute(const NetworkData& data)
 
         if (reply->error() != QNetworkReply::NoError)
         {
-            qInfo() << "Error!"
+            if (data.onError)
+            {
+                data.onError(result);
+            }
+            else
+            {
+                qInfo()
+                    << "Error!"
                     << "Status:"
                     << reply->attribute(
                            QNetworkRequest::Attribute::HttpStatusCodeAttribute);
