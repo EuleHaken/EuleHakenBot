@@ -22,10 +22,10 @@ SOURCES += \
 
 SOURCES += \
     src/Channel.cpp \
+    src/Helix.cpp \
     src/NetworkManager.cpp \
     src/NetworkRequest.cpp \
     src/NetworkResult.cpp \
-    src/Helix.cpp \
     src/Paths.cpp \
     src/main.cpp
 
