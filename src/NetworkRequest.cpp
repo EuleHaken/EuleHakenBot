@@ -78,20 +78,22 @@ void NetworkRequest::_execute(const NetworkData& data)
     }
 
     auto handleReply = [data, reply]() mutable {
+        QByteArray byteData = reply->readAll();
+        auto status =
+            reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+
+        NetworkResult result(byteData, status.toInt());
+
         if (reply->error() != QNetworkReply::NoError)
         {
             qInfo() << "Error!"
                     << "Status:"
                     << reply->attribute(
                            QNetworkRequest::Attribute::HttpStatusCodeAttribute);
+            }
+
             return;
         }
-
-        QByteArray byteData = reply->readAll();
-        auto status =
-            reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-
-        NetworkResult result(byteData, status.toInt());
 
         if (data.onSuccess)
         {
