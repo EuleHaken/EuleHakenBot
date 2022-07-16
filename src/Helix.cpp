@@ -8,7 +8,7 @@ Helix::Helix()
 
 NetworkRequest Helix::makeRequest(const QString &url, QUrlQuery &query)
 {
-    const QUrl fullUrl(this->baseUrl + url);
+    assert(!url.startsWith("/"));
 
     return NetworkRequest(fullUrl);
 }
