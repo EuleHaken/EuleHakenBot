@@ -8,6 +8,8 @@ namespace EuleHakenBot {
 
 class NetworkResult
 {
+    Q_DISABLE_COPY(NetworkResult)
+
 public:
     NetworkResult(const QByteArray& data, int status);
 
