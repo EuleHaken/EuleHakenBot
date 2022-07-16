@@ -19,13 +19,13 @@ NetworkRequest::NetworkRequest(const QUrl& url, const NetworkRequestType& type)
     this->_data.type = type;
 }
 
-NetworkRequest NetworkRequest::onSuccess(std::function<void(NetworkResult)> cb)
+NetworkRequest NetworkRequest::onSuccess(std::function<void(NetworkResult&)> cb)
 {
     this->_data.onSuccess = cb;
     return *this;
 }
 
-NetworkRequest NetworkRequest::onError(std::function<void(NetworkResult)> cb)
+NetworkRequest NetworkRequest::onError(std::function<void(NetworkResult&)> cb)
 {
     this->_data.onError = cb;
     return *this;

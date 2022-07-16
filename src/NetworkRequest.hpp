@@ -20,8 +20,8 @@ public:
     NetworkRequest(const QUrl& url,
                    const NetworkRequestType& type = NetworkRequestType::GET);
 
-    NetworkRequest onSuccess(std::function<void(NetworkResult)> cb);
-    NetworkRequest onError(std::function<void(NetworkResult)> cb);
+    NetworkRequest onSuccess(std::function<void(NetworkResult&)> cb);
+    NetworkRequest onError(std::function<void(NetworkResult&)> cb);
 
     NetworkRequest setType(const NetworkRequestType& newType);
 

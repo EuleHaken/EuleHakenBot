@@ -14,8 +14,8 @@ struct NetworkData
 
     QNetworkRequest request;
 
-    std::function<void(NetworkResult)> onSuccess;
-    std::function<void(NetworkResult)> onError;
+    std::function<void(NetworkResult&)> onSuccess;
+    std::function<void(NetworkResult&)> onError;
 };
 
 }  // namespace EuleHakenBot
