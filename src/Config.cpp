@@ -69,7 +69,26 @@ void Config::insert(const QString& key, const QJsonValue& value)
     qInfo() << getInstance()._data;
 }
 
-const QMap<QString, QJsonValue>& Config::getData() const
+bool Config::exists(const QString& key)
+{
+    auto value = Config::get(key);
+    return !value.isUndefined();
+}
+
+bool Config::hasValue(const QString& key)
+{
+    auto value = Config::get(key);
+    return !value.isUndefined() && !value.isNull();
+}
+
+/*
+const QMap<QString, QJsonValue>& Config::getDataAsMap() const
+{
+    return this->_dataAsMap;
+}
+*/
+
+const QJsonObject& Config::getData() const
 {
     return this->_data;
 }
