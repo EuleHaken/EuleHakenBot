@@ -15,6 +15,8 @@ private:
 
 public:
     static Config& getInstance();
+    static QJsonValue get(const QString& key);
+    static void insert(const QString& key, const QJsonValue& value);
 
 public:
     const QMap<QString, QJsonValue>& getData() const;
