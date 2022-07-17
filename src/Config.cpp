@@ -4,6 +4,25 @@ namespace EuleHakenBot {
 
 Config::Config()
 {
+    QDir root = Paths::getInstance().getRootDir();
+
+    QFile configFile(root.absoluteFilePath("config.json"));
+    if (!configFile.open(QFile::ReadWrite))
+    {
+        qFatal("Unable to open/create config.json file!");
+        return;
+    }
+
+    const auto contentAsObject =
+        QJsonDocument::fromJson(configFile.readAll()).object();
+
+    const auto keys = contentAsObject.keys();
+    for (const auto& key : keys)
+    {
+        this->_data.insert(key, contentAsObject[key]);
+    }
+
+    configFile.close();
 }
 
 Config& Config::getInstance()
