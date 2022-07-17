@@ -25,10 +25,14 @@ public:
     static void insert(const QString& key, const QJsonValue& value);
 
 public:
-    const QMap<QString, QJsonValue>& getData() const;
+    //const QMap<QString, QJsonValue>& getDataAsMap() const;
+
+    const QJsonObject& getData() const;
 
 private:
-    QMap<QString, QJsonValue> _data;
+    //QMap<QString, QJsonValue> _dataAsMap;
+
+    QJsonObject _data;
 };
 
 }  // namespace EuleHakenBot
