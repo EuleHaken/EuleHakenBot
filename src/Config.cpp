@@ -12,4 +12,9 @@ Config& Config::getInstance()
     return instance;
 }
 
+const QMap<QString, QJsonValue>& Config::getData() const
+{
+    return this->_data;
+}
+
 }  // namespace EuleHakenBot
