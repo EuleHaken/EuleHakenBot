@@ -1,8 +1,14 @@
 #pragma once
 
+#include <QDir>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QJsonValue>
 #include <QMap>
 #include <QString>
+
+#include "Paths.hpp"
 
 namespace EuleHakenBot {
 
