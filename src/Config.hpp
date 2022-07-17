@@ -10,6 +10,9 @@ class Config
 
 private:
     Config();
+
+public:
+    static Config& getInstance();
 };
 
 }  // namespace EuleHakenBot
