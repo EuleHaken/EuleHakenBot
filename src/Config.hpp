@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QJsonValue>
+#include <QMap>
 #include <QString>
 
 namespace EuleHakenBot {
@@ -13,6 +15,12 @@ private:
 
 public:
     static Config& getInstance();
+
+public:
+    const QMap<QString, QJsonValue>& getData() const;
+
+private:
+    QMap<QString, QJsonValue> _data;
 };
 
 }  // namespace EuleHakenBot
