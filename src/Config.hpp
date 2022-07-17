@@ -24,6 +24,20 @@ public:
     static QJsonValue get(const QString& key);
     static void insert(const QString& key, const QJsonValue& value);
 
+    /**
+     * @brief exists Checks if key exists
+     * @param key Key to check
+     * @return true if key exists - false if not
+     */
+    static bool exists(const QString& key);
+
+    /**
+     * @brief hasValue Checks if key exists and has a value (not null)
+     * @param key Key to check
+     * @return true if value exists and is not null - false if value does not exist or it's null
+     */
+    static bool hasValue(const QString& key);
+
 public:
     //const QMap<QString, QJsonValue>& getDataAsMap() const;
 
