@@ -1,10 +1,14 @@
 #pragma once
 
+#include <QString>
+
 namespace EuleHakenBot {
 
 class Config
 {
-public:
+    Q_DISABLE_COPY(Config)
+
+private:
     Config();
 };
 
