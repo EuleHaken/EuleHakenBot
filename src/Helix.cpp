@@ -4,6 +4,14 @@ namespace EuleHakenBot {
 
 Helix::Helix()
 {
+    if (Config::exists("oauthToken"))
+    {
+        this->oauthToken = Config::get("oauthToken").toString();
+    }
+    if (Config::exists("clientID"))
+    {
+        this->clientID = Config::get("clientID").toString();
+    }
 }
 
 NetworkRequest Helix::makeRequest(const QString& url, const QUrlQuery& query)
