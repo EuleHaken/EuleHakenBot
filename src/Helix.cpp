@@ -59,4 +59,10 @@ void Helix::updateCredentials(const QString& newClientID,
     this->oauthToken = newOauthToken;
 }
 
+Helix& Helix::getInstance()
+{
+    static Helix instance;
+    return instance;
+}
+
 }  // namespace EuleHakenBot
