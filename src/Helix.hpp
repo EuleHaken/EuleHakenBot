@@ -7,6 +7,8 @@
 #include <functional>
 #include <typeinfo>
 
+#include "Config.hpp"
+
 namespace EuleHakenBot {
 
 template <typename Type, class... Params>
@@ -19,6 +21,7 @@ class Helix
 private:
     Helix();
 
+public:
     void getUsers();
     void getChannels();
 
@@ -29,6 +32,9 @@ private:
 
     void updateCredentials(const QString& newClientID,
                            const QString& newOauthToken);
+
+public:
+    static Helix& getInstance();
 
 private:
     NetworkRequest makeRequest(const QString& url,
