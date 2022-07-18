@@ -36,9 +36,16 @@ QJsonValue Config::get(const QString& key)
     return getInstance()._data.value(key);
 }
 
-void Config::insert(const QString& key, const QJsonValue& value)
+void Config::insert(const QString& key, const QJsonValue& value,
+                    const bool& updateIfExists)
 {
     auto& instance = getInstance();
+    auto& data = instance._data;
+    if (data.contains(key) && updateIfExists)
+    {
+        update(key, value);
+        return;
+    }
 
     QDir root = Paths::getInstance().getRootDir();
     QFile configFile(root.absoluteFilePath("config.json"));
@@ -47,8 +54,6 @@ void Config::insert(const QString& key, const QJsonValue& value)
         qFatal("Unable to open/create config.json file!");
         return;
     }
-
-    auto& data = instance._data;
 
     QJsonObject obj;
     for (const auto& key : data.keys())
@@ -67,6 +72,48 @@ void Config::insert(const QString& key, const QJsonValue& value)
     configFile.close();
 
     qInfo() << getInstance()._data;
+}
+
+void Config::update(const QString& key, const QJsonValue& newValue)
+{
+    auto& instance = getInstance();
+    auto& data = instance._data;
+    if (!data.contains(key))
+    {
+        qInfo() << "Key" << key << "does not exist!";
+        return;
+    }
+
+    auto oldValue = data.value(key);
+    if (oldValue == newValue)
+    {
+        qInfo() << "Old value and new value are the same!";
+        return;
+    }
+
+    // replace value of key with newValue
+    data.remove(key);
+    data.insert(key, newValue);
+
+    QDir root = Paths::getInstance().getRootDir();
+    QFile configFile(root.absoluteFilePath("config.json"));
+    if (!configFile.open((QFile::ReadWrite | QFile::Truncate | QFile::Text)))
+    {
+        qFatal("Unable to open/create config.json file!");
+        return;
+    }
+
+    QJsonObject obj;
+    for (const auto& key : data.keys())
+    {
+        obj.insert(key, data[key]);
+    }
+
+    QJsonDocument doc(obj);
+    auto bytes = doc.toJson();
+    configFile.write(bytes);
+
+    configFile.close();
 }
 
 bool Config::exists(const QString& key)

@@ -22,7 +22,9 @@ private:
 public:
     static Config& getInstance();
     static QJsonValue get(const QString& key);
-    static void insert(const QString& key, const QJsonValue& value);
+    static void insert(const QString& key, const QJsonValue& value,
+                       const bool& updateIfExists = true);
+    static void update(const QString& key, const QJsonValue& newValue);
 
     /**
      * @brief exists Checks if key exists
