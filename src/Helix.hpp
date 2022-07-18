@@ -9,6 +9,9 @@
 
 namespace EuleHakenBot {
 
+template <typename Type, class... Params>
+using DefaultCallback = std::function<Type(Params...)>;
+
 class Helix
 {
     Q_DISABLE_COPY(Helix)
@@ -36,10 +39,6 @@ private:
 
     QString clientID;
     QString oauthToken;
-
-private:
-    template <typename Type, typename... Params>
-    using DefaultCallback = std::function<Type(Params...)>;
 };
 
 }  // namespace EuleHakenBot
