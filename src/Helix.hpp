@@ -11,7 +11,9 @@ namespace EuleHakenBot {
 
 class Helix
 {
-public:
+    Q_DISABLE_COPY(Helix)
+
+private:
     Helix();
 
     void getUsers();
