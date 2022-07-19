@@ -1,13 +1,10 @@
 #pragma once
 
-#include <QByteArray>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QString>
-#include <QUrl>
 #include "NetworkData.hpp"
 #include "NetworkManager.hpp"
-#include "NetworkRequestType.hpp"
+#include "NetworkResult.hpp"
+
+#include <functional>
 
 namespace EuleHakenBot {
 
@@ -20,8 +17,8 @@ public:
     NetworkRequest(const QUrl& url,
                    const NetworkRequestType& type = NetworkRequestType::GET);
 
-    NetworkRequest onSuccess(std::function<void(NetworkResult&)> cb);
-    NetworkRequest onError(std::function<void(NetworkResult&)> cb);
+    NetworkRequest& onSuccess(const SuccessCallback& cb);
+    NetworkRequest& onError(const ErrorCallback& cb);
 
     NetworkRequest setType(const NetworkRequestType& newType);
 
