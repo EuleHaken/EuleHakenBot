@@ -20,11 +20,11 @@ public:
     NetworkRequest& onSuccess(const SuccessCallback& cb);
     NetworkRequest& onError(const ErrorCallback& cb);
 
-    NetworkRequest setType(const NetworkRequestType& newType);
+    NetworkRequest& setType(const NetworkRequestType& newType);
 
-    NetworkRequest setHeader(const char* key, const char* value);
+    NetworkRequest& setHeader(const char* key, const char* value);
 
-    NetworkRequest setTimeout(const unsigned long& timeout = 2500);
+    NetworkRequest& setTimeout(const unsigned long& timeout = 2500);
 
     void execute();
 
