@@ -25,10 +25,9 @@ public:
     void getUsers();
     void getChannels();
 
-    void getTwitchID(const QString& username,
-                     const std::function<void(int)>& onSuccess,
-                     const std::function<void(NetworkResult&)>& onError =
-                         DefaultCallback<void, NetworkResult&>());
+    void getTwitchID(
+        const QString& username, const std::function<void(int)>& onSuccess,
+        const ErrorCallback& onError = DefaultCallback<void, NetworkResult&>());
 
     void updateCredentials(const QString& newClientID,
                            const QString& newOauthToken);
