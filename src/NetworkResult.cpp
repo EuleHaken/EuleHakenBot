@@ -3,8 +3,8 @@
 namespace EuleHakenBot {
 
 NetworkResult::NetworkResult(const QByteArray& data, int status)
-    : _data(data)
-    , _status(status)
+    : _data{data}
+    , _status{status}
 {
 }
 
