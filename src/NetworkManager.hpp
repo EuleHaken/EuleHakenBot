@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QNetworkAccessManager>
-#include <QObject>
 #include <QThread>
 
 namespace EuleHakenBot {
@@ -10,11 +9,9 @@ namespace EuleHakenBot {
 
 class NetworkManager : public QObject
 {
-    Q_OBJECT
-
 public:
-    static QNetworkAccessManager accessManager;
     static QThread workerThread;
+    static QNetworkAccessManager accessManager;
 
     static void init();
     static void deinit();
