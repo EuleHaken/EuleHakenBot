@@ -8,6 +8,14 @@
 
 namespace EuleHakenBot {
 
+class NetworkWorker : public QObject
+{
+    Q_OBJECT
+
+signals:
+    void requestUrl();
+};
+
 class NetworkRequest
 {
 public:
