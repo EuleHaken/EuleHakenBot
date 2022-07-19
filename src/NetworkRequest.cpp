@@ -4,40 +4,34 @@ namespace EuleHakenBot {
 
 NetworkRequest::NetworkRequest(const QString& url,
                                const NetworkRequestType& type)
-    : _data{NetworkData()}
+    : _data{new NetworkData()}
 {
-    this->_data.request.setUrl(QUrl{url});
-    this->_data.type = type;
+    this->_data->request.setUrl(QUrl{url});
+    this->_data->type = type;
 }
 
 NetworkRequest::NetworkRequest(const QUrl& url, const NetworkRequestType& type)
-    : _data{NetworkData()}
+    : _data{new NetworkData()}
 {
-    this->_data.request.setUrl(url);
-    this->_data.type = type;
+    this->_data->request.setUrl(url);
+    this->_data->type = type;
 }
 
 NetworkRequest NetworkRequest::onSuccess(std::function<void(NetworkResult&)> cb)
 {
-    this->_data.onSuccess = cb;
-    return *this;
-}
-
-NetworkRequest NetworkRequest::onError(std::function<void(NetworkResult&)> cb)
-{
-    this->_data.onError = cb;
+    this->_data->onSuccess = cb;
     return *this;
 }
 
 NetworkRequest NetworkRequest::setType(const NetworkRequestType& newType)
 {
-    this->_data.type = newType;
+    this->_data->onError = cb;
     return *this;
 }
 
 NetworkRequest NetworkRequest::setHeader(const char* key, const char* value)
 {
-    this->_data.request.setRawHeader(key, value);
+    this->_data->request.setRawHeader(key, value);
     return *this;
 }
 
@@ -52,7 +46,7 @@ void NetworkRequest::execute()
     this->_execute(std::move(this->_data));
 }
 
-void NetworkRequest::_execute(const NetworkData& data)
+void NetworkRequest::_execute(const std::shared_ptr<NetworkData>& data)
 {
     auto reply = [data]() -> QNetworkReply* {
         switch (data.type)
