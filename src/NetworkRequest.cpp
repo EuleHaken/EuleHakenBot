@@ -37,6 +37,12 @@ NetworkRequest& NetworkRequest::setHeader(const char* key, const char* value)
     return *this;
 }
 
+NetworkRequest& NetworkRequest::setTimeout(const unsigned long& timeout)
+{
+    this->_data->request.setTransferTimeout(timeout);
+    return *this;
+}
+
 NetworkRequest& NetworkRequest::setPayload(const QByteArray& data)
 {
     this->_data->payload = data;
