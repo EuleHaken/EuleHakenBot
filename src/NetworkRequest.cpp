@@ -56,66 +56,77 @@ void NetworkRequest::execute()
 
 void NetworkRequest::_execute(const std::shared_ptr<NetworkData>& data)
 {
-    auto reply = [data]() -> QNetworkReply* {
-        switch (data.type)
-        {
-            case NetworkRequestType::GET: {
-                return NetworkManager::accessManager.get(data.request);
-            }
-            case NetworkRequestType::POST: {
-                return nullptr;  // TODO
-            }
-            default: {
-                return nullptr;
-            }
-        }
-    }();
+    NetworkWorker requester;
 
-    if (reply == nullptr)
-    {
-        qInfo() << "Invalid request type!";
-        return;
-    }
+    NetworkWorker* worker = new NetworkWorker;
+    worker->moveToThread(&NetworkManager::workerThread);
 
-    auto handleReply = [data, reply]() mutable {
-        QByteArray byteData = reply->readAll();
-        auto status =
-            reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-
-        NetworkResult result(byteData, status.toInt());
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            if (data.onError)
+    auto onUrlRequested = [data, worker]() {
+        auto reply = [&]() -> QNetworkReply* {
+            switch (data->type)
             {
-                data.onError(result);
+                case NetworkRequestType::GET: {
+                    qInfo() << "Performing GET request!";
+                    return NetworkManager::accessManager.get(data->request);
+                }
+                case NetworkRequestType::POST: {
+                    return NetworkManager::accessManager.post(data->request,
+                                                              data->payload);
+                }
+                default: {
+                    return nullptr;
+                }
             }
-            else
-            {
-                qInfo()
-                    << "Error!"
-                    << "Status:"
-                    << reply->attribute(
-                           QNetworkRequest::Attribute::HttpStatusCodeAttribute);
-            }
+        }();
 
+        if (reply == nullptr)
+        {
+            qInfo() << "Invalid request type!";
             return;
         }
 
-        if (data.onSuccess)
-        {
-            data.onSuccess(result);
-        }
+        QObject::connect(
+            reply, &QNetworkReply::finished, worker,
+            [reply, data, worker]() mutable {
+                QByteArray bytes = reply->readAll();
+                auto status =
+                    reply
+                        ->attribute(
+                            QNetworkRequest::Attribute::HttpStatusCodeAttribute)
+                        .toInt();
 
-        reply->deleteLater();
+                NetworkResult result(bytes, status);
+
+                if (reply->error() != QNetworkReply::NoError)
+                {
+                    if (data->onError)
+                    {
+                        data->onError(result);
+                    }
+                    else
+                    {
+                        qInfo() << "Error:" << result.getData();
+                    }
+                    return;
+                }
+
+                if (data->onSuccess)
+                {
+                    data->onSuccess(result);
+                }
+                else
+                {
+                    qInfo() << "Success:" << result.getData();
+                }
+
+                delete worker;
+            });
     };
 
-    QObject::connect(reply, &QNetworkReply::finished, [data, handleReply]() {
-        postToThread([handleReply]() {
-            auto cb = std::move(handleReply);
-            cb();
-        });
-    });
+    QObject::connect(&requester, &NetworkWorker::requestUrl, worker,
+                     onUrlRequested);
+
+    emit requester.requestUrl();
 }
 
 }  // namespace EuleHakenBot
