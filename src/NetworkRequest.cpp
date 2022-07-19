@@ -1,6 +1,4 @@
 #include "NetworkRequest.hpp"
-#include "NetworkManager.hpp"
-#include "PostToThread.hpp"
 
 namespace EuleHakenBot {
 
