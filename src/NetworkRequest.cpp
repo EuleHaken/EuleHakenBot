@@ -31,7 +31,7 @@ NetworkRequest& NetworkRequest::onError(
     return *this;
 }
 
-NetworkRequest NetworkRequest::setHeader(const char* key, const char* value)
+NetworkRequest& NetworkRequest::setHeader(const char* key, const char* value)
 {
     this->_data->request.setRawHeader(key, value);
     return *this;
