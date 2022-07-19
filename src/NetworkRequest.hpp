@@ -34,6 +34,8 @@ public:
 
     NetworkRequest& setTimeout(const unsigned long& timeout = 2500);
 
+    NetworkRequest& setPayload(const QByteArray& data);
+
     void execute();
 
 private:
