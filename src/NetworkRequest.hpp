@@ -29,10 +29,10 @@ public:
     void execute();
 
 private:
-    void _execute(const NetworkData& data);
+    void _execute(const std::shared_ptr<NetworkData>& data);
 
 private:
-    NetworkData _data;
+    std::shared_ptr<NetworkData> _data;
 };
 
 }  // namespace EuleHakenBot
