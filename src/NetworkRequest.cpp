@@ -107,6 +107,9 @@ void NetworkRequest::_execute(const std::shared_ptr<NetworkData>& data)
                     {
                         qInfo() << "Error:" << result.getData();
                     }
+
+                    // TODO(EuleHaken) I think we should do `delete worker` here aswell Hmm
+                    delete worker;
                     return;
                 }
 
