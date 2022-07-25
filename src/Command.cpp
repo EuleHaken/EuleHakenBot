@@ -2,7 +2,7 @@
 
 namespace EuleHakenBot {
 
-Command::Command(const QString& name, const CodeFunc& code, int cooldown,
+Command::Command(const QString& name, const CodeFunc& code, const int& cooldown,
                  const QString& description)
     : _name{name}
     , _code{code}
