@@ -1,6 +1,3 @@
-[submodule "libs/WebSocket"]
-	path = libs/WebSocket
-	url = https://github.com/eulehaken/websocket.git
 [submodule "libs/libcommuni"]
 	path = libs/libcommuni
 	url = https://github.com/communi/libcommuni
