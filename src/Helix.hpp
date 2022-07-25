@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NetworkRequest.hpp"
+#include "network/NetworkRequest.hpp"
 
 #include <QString>
 #include <QUrlQuery>
