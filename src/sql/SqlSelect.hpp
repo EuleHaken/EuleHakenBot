@@ -10,6 +10,10 @@ namespace EuleHakenBot {
 
 class SqlSelect
 {
+private:
+    using SuccessCallback = std::function<void(const QVariant&)>;
+    using ErrorCallback = std::function<void(const QSqlQuery&)>;
+
 public:
     SqlSelect(const QString& table);
 
