@@ -1,9 +1,19 @@
 #pragma once
 
+#include <QSqlDatabase>
+#include <QString>
+
+namespace EuleHakenBot {
 
 class SqlSelect
 {
 public:
-    SqlSelect();
+    SqlSelect(const QString& table);
+
+private:
+    QSqlDatabase _db;
+
+    QString _table;
 };
 
+}  // namespace EuleHakenBot
