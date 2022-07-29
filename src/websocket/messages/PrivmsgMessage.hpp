@@ -20,4 +20,4 @@ private:
     QString _message;
 };
 
-}
+}  // namespace EuleHakenBot

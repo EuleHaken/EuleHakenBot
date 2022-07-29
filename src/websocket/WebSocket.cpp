@@ -155,4 +155,4 @@ void WebSocket::join(const QString& channel)
     this->sendRaw(QString("JOIN #%1").arg(channel));
 }
 
-}
+}  // namespace EuleHakenBot

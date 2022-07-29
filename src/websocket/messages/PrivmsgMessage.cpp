@@ -27,4 +27,4 @@ const QString& PrivmsgMessage::getMessage() const
     return this->_message;
 }
 
-}
+}  // namespace EuleHakenBot

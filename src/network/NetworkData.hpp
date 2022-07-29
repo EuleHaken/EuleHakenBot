@@ -17,7 +17,7 @@ using ErrorCallback = std::function<void(NetworkResult&)>;
 
 struct NetworkData
 {
-    Q_DISABLE_COPY(NetworkData) // meh, dont like that :/
+    Q_DISABLE_COPY(NetworkData)  // meh, dont like that :/
     NetworkData() = default;
 
     SuccessCallback onSuccess;
