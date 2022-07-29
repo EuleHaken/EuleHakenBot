@@ -1,7 +1,5 @@
 #include "SqlInsert.hpp"
 
-#include "Paths.hpp"
-
 #include <QDir>
 
 namespace EuleHakenBot {
@@ -9,19 +7,16 @@ namespace EuleHakenBot {
 SqlInsert::SqlInsert(const QString& table)
     : _table{table}
 {
-    const QDir& root = Paths::getRootDir();
+    this->_db = QSqlDatabase::database("database");
+}
 
-    QString realDatabaseName = database;
-    if (!database.endsWith(".db"))
-        realDatabaseName.append(".db");
+SqlInsert& SqlInsert::data(const QString& key, const QString& value)
+{
+    // TODO escape key and value here (prevent sql injection?)
+    this->_keys << QString("\"%1\"").arg(key);
+    this->_vals << QString("\"%1\"").arg(value);
 
-    const QString& connectionName = root.absoluteFilePath(realDatabaseName);
-    if (!QSqlDatabase::contains(connectionName))
-    {
-        QSqlDatabase::addDatabase("QSQLITE", connectionName);
-    }
-
-    this->_db = QSqlDatabase::database(connectionName);
+    return *this;
 }
 
 }  // namespace EuleHakenBot
