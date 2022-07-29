@@ -2,6 +2,7 @@
 
 #include <QSqlDatabase>
 #include <QString>
+#include <QStringList>
 
 namespace EuleHakenBot {
 
