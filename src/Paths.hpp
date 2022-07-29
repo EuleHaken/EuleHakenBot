@@ -13,18 +13,22 @@ class Paths
 private:
     Paths();
 
-public:
+private:
     static Paths& getInstance();
 
-    const QDir& getChannelsDir() const;
-    const QDir& getRootDir() const;
-    const QString& getRootDirPath() const;
+public:
+    static const QDir& getChannelsDir();
+    static const QDir& getRootDir();
+    static const QDir& getCommandsDir();
+
+    static const QString& getRootDirPath();
 
 private:
     QString _rootDirPath;
-    QDir _rootDir;
 
+    QDir _rootDir;
     QDir _channelsDir;
+    QDir _commandsDir;
 };
 
 }  // namespace EuleHakenBot

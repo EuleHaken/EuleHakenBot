@@ -4,7 +4,7 @@ namespace EuleHakenBot {
 
 Config::Config()
 {
-    QDir root = Paths::getInstance().getRootDir();
+    const QDir& root = Paths::getRootDir();
 
     QFile configFile(root.absoluteFilePath("config.json"));
     if (!configFile.open(QFile::ReadWrite))
@@ -47,7 +47,7 @@ void Config::insert(const QString& key, const QJsonValue& value,
         return;
     }
 
-    QDir root = Paths::getInstance().getRootDir();
+    const QDir& root = Paths::getRootDir();
     QFile configFile(root.absoluteFilePath("config.json"));
     if (!configFile.open((QFile::ReadWrite | QFile::Truncate | QFile::Text)))
     {
@@ -95,7 +95,7 @@ void Config::update(const QString& key, const QJsonValue& newValue)
     data.remove(key);
     data.insert(key, newValue);
 
-    QDir root = Paths::getInstance().getRootDir();
+    const QDir& root = Paths::getRootDir();
     QFile configFile(root.absoluteFilePath("config.json"));
     if (!configFile.open((QFile::ReadWrite | QFile::Truncate | QFile::Text)))
     {

@@ -14,6 +14,12 @@ Paths::Paths()
         this->_rootDir.mkdir("channels");
     }
     this->_channelsDir = QDir(this->_rootDir.absoluteFilePath("channels"));
+
+    if (!this->_rootDir.exists("commands"))
+    {
+        this->_rootDir.mkdir("commands");
+    }
+    this->_commandsDir = QDir(this->_rootDir.absoluteFilePath("commands"));
 }
 
 Paths& Paths::getInstance()
@@ -22,19 +28,24 @@ Paths& Paths::getInstance()
     return instance;
 }
 
-const QDir& Paths::getChannelsDir() const
+const QDir& Paths::getChannelsDir()
 {
-    return this->_channelsDir;
+    return getInstance()._channelsDir;
 }
 
-const QDir& Paths::getRootDir() const
+const QDir& Paths::getRootDir()
 {
-    return this->_rootDir;
+    return getInstance()._rootDir;
 }
 
-const QString& Paths::getRootDirPath() const
+const QDir& Paths::getCommandsDir()
 {
-    return this->_rootDirPath;
+    return getInstance()._commandsDir;
+}
+
+const QString& Paths::getRootDirPath()
+{
+    return getInstance()._rootDirPath;
 }
 
 }  // namespace EuleHakenBot
