@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlResult>
 
 namespace EuleHakenBot {
 
@@ -19,6 +20,20 @@ SqlInsert& SqlInsert::data(const QString& key, const QString& value)
     // TODO escape key and value here (prevent sql injection?)
     this->_keys << QString("\"%1\"").arg(key);
     this->_vals << QString("\"%1\"").arg(value);
+
+    return *this;
+}
+
+SqlInsert& SqlInsert::onSuccess(const SuccessCallback& cb)
+{
+    this->_onSuccess = cb;
+
+    return *this;
+}
+
+SqlInsert& SqlInsert::onError(const ErrorCallback& cb)
+{
+    this->_onError = cb;
 
     return *this;
 }
@@ -53,17 +68,34 @@ void SqlInsert::exec()
         QSqlQuery result = self._db.exec(finalQuery);
         if (result.lastError().type() != QSqlError::NoError)
         {
-            qWarning() << "Insert query had an error:" << result.lastError();
+            if (self._onError)
+            {
+                self._onError(result);
+            }
+            else
+            {
+                qWarning() << "Insert query had an error:"
+                           << result.lastError();
+            }
+
+            return;
+        }
+
+        if (self._onSuccess)
+        {
+            self._onSuccess(result);
         }
     };
 
     QObject::connect(&requester, &SqlWorker::makeQuery, worker,
                      [worker, &onMakeQuery, self = std::move(*this)]() mutable {
                          onMakeQuery();
-                         self._db.close();
 
+                         self._db.close();
                          delete worker;
                      });
+
+    emit requester.makeQuery();
 }
 
 }  // namespace EuleHakenBot

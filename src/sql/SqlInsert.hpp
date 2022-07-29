@@ -8,6 +8,12 @@ namespace EuleHakenBot {
 
 class SqlInsert final
 {
+private:
+    using SuccessCallback = std::function<void(const QSqlQuery&)>;
+    using ErrorCallback = std::function<void(const QSqlQuery&)>;
+
+    using DefaultCallback = std::function<Ret(In...)>;
+
 public:
     /*!
      * \param table Table to insert into
@@ -20,6 +26,9 @@ public:
 public:
     SqlInsert& data(const QString& key, const QString& value);
 
+    SqlInsert& onSuccess(const SuccessCallback& cb);
+    SqlInsert& onError(const ErrorCallback& cb);
+
     void exec();
 
 private:
@@ -29,6 +38,10 @@ private:
 
     QStringList _keys;
     QStringList _vals;
+
+    SuccessCallback
+        _onSuccess;          //  = DefaultCallback<void, const QSqlQuery&>();
+    ErrorCallback _onError;  //  = DefaultCallback<void, const QSqlQuery&>();
 };
 
 }  // namespace EuleHakenBot
