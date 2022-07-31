@@ -2,8 +2,6 @@
 
 namespace EuleHakenBot {
 
-// Borrowed from https://github.com/Chatterino/chatterino2/blob/master/src/common/NetworkManager.cpp
-
 QThread NetworkManager::workerThread;
 QNetworkAccessManager NetworkManager::accessManager;
 
